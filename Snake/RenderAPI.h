@@ -11,5 +11,6 @@ namespace Renderer {
 		__declspec(dllimport) void RenderGrid(Grid& grid, Shader& shader);
 		__declspec(dllimport) void Cleanup(unsigned int& VBO, unsigned int& VAO);
 		__declspec(dllimport) void* GetRenderWindow();
+		__declspec(dllimport) float GetDeltaTime();
 	}
 }

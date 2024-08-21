@@ -7,6 +7,12 @@
 void HandleInput(GLFWwindow* window, Renderer::Grid& grid, Snake& snake);
 std::unordered_map<int, bool> keyStates;
 
+enum GameState {
+	START,
+	GAME,
+	END,
+};
+
 int main() {
 	Renderer::Init(800, 800, "Snake");
 
@@ -21,6 +27,7 @@ int main() {
 	Snake snake;
 
 	while(!Renderer::windowShouldClose()) {
+
 		HandleInput((GLFWwindow*)Renderer::GetRenderWindow(), grid, snake);
 		snake.SetPixels(grid);
 		Renderer::RenderGrid(grid, shader);

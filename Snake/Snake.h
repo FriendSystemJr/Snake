@@ -23,5 +23,6 @@ private:
 	float m_velocity;
 	
 	std::vector<std::tuple<int, int>> m_points;
+	directions m_direction;
 
 };
