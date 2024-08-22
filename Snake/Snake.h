@@ -1,5 +1,5 @@
 #pragma once
-#include <vector>
+#include <deque>
 #include <tuple>
 
 #include "Grid.h"
@@ -22,7 +22,7 @@ public:
 private:
 	float m_velocity;
 	
-	std::vector<std::tuple<int, int>> m_points;
+	std::deque<std::tuple<int, int>> m_points;
 	directions m_direction;
 
 };
