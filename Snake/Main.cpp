@@ -48,11 +48,16 @@ void AddKeyCheck(GLFWwindow* window, Renderer::InputHandler::KeyCode key, Func f
 }
 
 void HandleInput(GLFWwindow* window, Renderer::Grid& grid, Snake& snake) {
-	//int keys[] = { Renderer::InputHandler::KEY_W }; //Refactor (maybe in DLL?) to have every key automatically
 
 	//TODO: Add docu
 	AddKeyCheck(window, Renderer::InputHandler::KEY_W, std::bind(&Snake::Move, &snake, std::placeholders::_1, std::placeholders::_2), snake.UP, grid);
+	AddKeyCheck(window, Renderer::InputHandler::KEY_W, std::bind(&Snake::SetDirection, &snake, std::placeholders::_1), snake.UP);
+
 	AddKeyCheck(window, Renderer::InputHandler::KEY_D, std::bind(&Snake::Move, &snake, std::placeholders::_1, std::placeholders::_2), snake.RIGHT, grid);
+	AddKeyCheck(window, Renderer::InputHandler::KEY_W, std::bind(&Snake::SetDirection, &snake, std::placeholders::_1), snake.RIGHT);
+
 	AddKeyCheck(window, Renderer::InputHandler::KEY_S, std::bind(&Snake::Move, &snake, std::placeholders::_1, std::placeholders::_2), snake.DOWN, grid);
+	AddKeyCheck(window, Renderer::InputHandler::KEY_W, std::bind(&Snake::SetDirection, &snake, std::placeholders::_1), snake.DOWN);
+
 	AddKeyCheck(window, Renderer::InputHandler::KEY_A, std::bind(&Snake::Move, &snake, std::placeholders::_1, std::placeholders::_2), snake.LEFT, grid);
 }

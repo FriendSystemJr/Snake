@@ -15,6 +15,9 @@ public:
 		LEFT = 3,
 	};
 
+	//Setter
+	void SetDirection(directions direction);
+
 	//Functions
 	void SetPixels(Renderer::Grid& grid);
 	void Move(directions direction, Renderer::Grid& grid);

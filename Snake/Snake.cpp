@@ -17,10 +17,10 @@ Snake::Snake() {
 void Snake::SetPixels(Renderer::Grid& grid) {
 	for (int i = 0; i < m_points.size(); ++i) {
 		if (i == 0) {
-			grid.SetPixel(std::get<0>(m_points[i]), std::get<1>(m_points[i]), { 1.f, 0.f, 0.929f, 1.0f });
+			grid.SetPixel(std::get<0>(m_points[i]), std::get<1>(m_points[i]), { 1.f, 0.f, 0.929f, 1.0f }, true);
 			continue;
 		}
-		grid.SetPixel(std::get<0>(m_points[i]), std::get<1>(m_points[i]), {0.071f, 0.922f, 0.369f, 1.0f});
+		grid.SetPixel(std::get<0>(m_points[i]), std::get<1>(m_points[i]), {0.071f, 0.922f, 0.369f, 1.0f}, true);
 	}
 }
 
@@ -58,4 +58,9 @@ void Snake::Move(directions direction, Renderer::Grid& grid) {
 		m_points.pop_back();
 		m_points.push_front({ std::get<0>(m_points.front()) - 1, std::get<1>(m_points.front()) });
 	}
+}
+
+//Setter
+void Snake::SetDirection(directions direction) {
+	m_direction = direction;
 }
