@@ -24,6 +24,9 @@
     <ClCompile Include="Main.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="Apple.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BufferManager.h">
@@ -45,6 +48,9 @@
       <Filter>Headerdateien\Import</Filter>
     </ClInclude>
     <ClInclude Include="Snake.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Apple.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

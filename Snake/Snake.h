@@ -2,7 +2,7 @@
 #include <deque>
 #include <tuple>
 
-#include "Grid.h"
+#include "RenderAPI.h"
 
 class Snake {
 public:
@@ -20,11 +20,12 @@ public:
 
 	//Functions
 	void SetPixels(Renderer::Grid& grid);
-	void Move(directions direction, Renderer::Grid& grid);
+	void Move(Renderer::Grid& grid);
 
 private:
 	float m_velocity;
-	
+	float m_movement;
+
 	std::deque<std::tuple<int, int>> m_points;
 	directions m_direction;
 

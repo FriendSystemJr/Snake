@@ -1,3 +1,5 @@
+#pragma once
+
 #include "Shader.h"
 #include "Grid.h"
 #include "BufferManager.h"
