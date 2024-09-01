@@ -1,5 +1,6 @@
 #include "RenderAPI.h"
 #include "Snake.h";
+#include "Apple.h"
 
 #include <unordered_map>
 #include <functional>
@@ -26,12 +27,21 @@ int main() {
 
 	Snake snake;
 
+	Apple apple;
+	
+	bool test = false;
+
 	while(!Renderer::windowShouldClose()) {
 
 		HandleInput((GLFWwindow*)Renderer::GetRenderWindow(), grid, snake);
 
 		snake.Move(grid);
 		snake.SetPixels(grid);
+
+		if (!test) {
+			apple.SetSpot(grid, snake);
+			test = true;
+		}
 
 		Renderer::RenderGrid(grid, shader);
 	}

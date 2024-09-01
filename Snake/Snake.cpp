@@ -67,6 +67,11 @@ void Snake::Move(Renderer::Grid& grid) {
 	}
 }
 
+//Getter
+std::deque<std::tuple<int, int>>& Snake::GetPoints() {
+	return m_points;
+}
+
 //Setter
 void Snake::SetDirection(directions direction) {
 	m_direction = direction;

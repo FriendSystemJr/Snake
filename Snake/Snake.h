@@ -15,6 +15,9 @@ public:
 		LEFT = 3,
 	};
 
+	//Getter
+	std::deque<std::tuple<int, int>>& GetPoints();
+
 	//Setter
 	void SetDirection(directions direction);
 

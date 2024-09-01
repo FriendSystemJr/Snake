@@ -13,6 +13,8 @@ namespace Renderer {
 		// Getter
 		float GetPixelWidth() const;
 		float GetPixelHeight() const;
+		std::vector<std::vector<Pixel>>& GetGrid();
+		std::vector<float>& GetVertices();
 
 		void SetPixel(unsigned int x, unsigned int y, std::array<float, 4> color = { 1.0f, 1.0f, 1.0f, 1.0f }, bool checkColor=false);
 		void UnsetPixel(unsigned int x, unsigned int y);
@@ -24,8 +26,7 @@ namespace Renderer {
 		unsigned int& GetVAO();
 		unsigned int& GetVBO();
 
-		std::vector<std::vector<Pixel>>& GetGrid();
-		std::vector<float>& GetVertices();
+		
 
 	private:
 
@@ -38,7 +39,6 @@ namespace Renderer {
 
 		// Variables
 
-		//std::vector<std::vector<bool>> m_grid;
 		std::vector<std::vector<Pixel>> m_grid;
 		std::vector<float> m_vertices;
 
