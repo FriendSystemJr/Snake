@@ -3,6 +3,7 @@
 #include <tuple>
 
 #include "RenderAPI.h"
+#include "Apple.h"
 
 class Snake {
 public:
@@ -24,6 +25,7 @@ public:
 	//Functions
 	void SetPixels(Renderer::Grid& grid);
 	void Move(Renderer::Grid& grid);
+	void CollisionDetect(Apple& apple);
 
 private:
 	float m_velocity;

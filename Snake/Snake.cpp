@@ -22,6 +22,35 @@ void Snake::SetPixels(Renderer::Grid& grid) {
 	}
 }
 
+void Snake::CollisionDetect(Apple& apple) {
+	//if (std::find(snake.GetPoints().begin(), snake.GetPoints().end(), std::make_tuple(randomX, randomY)) == snake.GetPoints().end()) {
+		//m_spot[0] = randomX;
+		//m_spot[1] = randomY;
+		//break;
+	//}
+
+	if (m_points.front() == std::make_tuple(apple.GetSpot()[0], apple.GetSpot()[1])) {
+		switch (m_direction) {
+		case UP:
+			m_points.push_back({ std::get<0>(m_points.back()), std::get<1>(m_points.back()) - 1 });
+			apple.GetSpot()[0] = -1;
+			break;
+		case RIGHT:
+			m_points.push_back({ std::get<0>(m_points.back()) - 1, std::get<1>(m_points.back()) });
+			apple.GetSpot()[0] = -1;
+			break;
+		case DOWN:
+			m_points.push_back({ std::get<0>(m_points.back()), std::get<1>(m_points.back()) + 1 });
+			apple.GetSpot()[0] = -1;
+			break;
+		case LEFT:
+			m_points.push_back({ std::get<0>(m_points.back()) + 1, std::get<1>(m_points.back()) });
+			apple.GetSpot()[0] = -1;
+			break;
+		}
+	}
+}
+
 void Snake::Move(Renderer::Grid& grid) {
 	if (m_movement > 1) {
 		if (m_direction == UP) {

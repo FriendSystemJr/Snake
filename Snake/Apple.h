@@ -2,12 +2,16 @@
 #include <array>
 
 #include "Grid.h"
-#include "Snake.h"
+
+class Snake;
 
 class Apple {
 public:
 
 	Apple() = default;
+
+	//Getter
+	std::array<unsigned int, 2>& GetSpot();
 
 	//Setter
 	void SetSpot(Renderer::Grid& grid, Snake& snake);

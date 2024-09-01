@@ -31,17 +31,19 @@ int main() {
 	
 	bool test = false;
 
+	apple.SetSpot(grid, snake);
+
 	while(!Renderer::windowShouldClose()) {
 
 		HandleInput((GLFWwindow*)Renderer::GetRenderWindow(), grid, snake);
 
-		snake.Move(grid);
-		snake.SetPixels(grid);
-
-		if (!test) {
+		if (apple.GetSpot()[0] == -1) {
 			apple.SetSpot(grid, snake);
-			test = true;
 		}
+
+		snake.Move(grid);
+		snake.CollisionDetect(apple);
+		snake.SetPixels(grid);
 
 		Renderer::RenderGrid(grid, shader);
 	}

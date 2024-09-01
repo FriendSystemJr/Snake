@@ -1,8 +1,15 @@
+#include "Snake.h"
 #include "Apple.h"
 
 #include <random>
 #include <algorithm>
 
+//Getter
+std::array<unsigned int, 2>& Apple::GetSpot() {
+	return m_spot;
+}
+
+//Setter
 void Apple::SetSpot(Renderer::Grid& grid, Snake& snake) {
 
 	GenerateSpot(grid, snake);
