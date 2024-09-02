@@ -16,11 +16,19 @@ public:
 		LEFT = 3,
 	};
 
+	enum state {
+		START,
+		GAME,
+		END,
+	};
+
 	//Getter
 	std::deque<std::tuple<int, int>>& GetPoints();
+	state GetState();
 
 	//Setter
 	void SetDirection(directions direction);
+	void SetState(state state);
 
 	//Functions
 	void SetPixels(Renderer::Grid& grid);
@@ -32,6 +40,8 @@ private:
 	float m_movement;
 
 	std::deque<std::tuple<int, int>> m_points;
+
 	directions m_direction;
+	state m_state;
 
 };

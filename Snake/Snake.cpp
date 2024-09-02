@@ -5,6 +5,10 @@ Snake::Snake() {
 	m_velocity = 3.5f;
 	m_movement = 0.f;
 
+	m_direction = RIGHT;
+
+	m_state = START;
+
 	m_points.push_back({ 10, 10 });
 	m_points.push_back({ 9, 10 });
 	m_points.push_back({ 8, 10 });
@@ -22,10 +26,12 @@ void Snake::SetPixels(Renderer::Grid& grid) {
 	}
 }
 
+//TODO: Fix logic (appended pixel should not be direction based)
 void Snake::CollisionDetect(Apple& apple) {
 
 	if (std::find(m_points.begin() + 1, m_points.end(), m_points.front()) != m_points.end()) {
 		std::cout << "Crashed!\n";
+		m_state = END;
 	}
 
 	if (m_points.front() == std::make_tuple(apple.GetSpot()[0], apple.GetSpot()[1])) {
@@ -92,8 +98,15 @@ std::deque<std::tuple<int, int>>& Snake::GetPoints() {
 	return m_points;
 }
 
+Snake::state Snake::GetState() {
+	return m_state;
+}
+
 //Setter
 void Snake::SetDirection(directions direction) {
+	if (m_state == START && direction != LEFT)
+		m_state = GAME;
+
 	if (m_direction == direction)
 		return;
 	if (m_direction == UP && direction == DOWN)
@@ -106,4 +119,8 @@ void Snake::SetDirection(directions direction) {
 		return;
 
 	m_direction = direction;
+}
+
+void Snake::SetState(state state) {
+	m_state = state;
 }
