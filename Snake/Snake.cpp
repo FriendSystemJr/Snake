@@ -23,11 +23,10 @@ void Snake::SetPixels(Renderer::Grid& grid) {
 }
 
 void Snake::CollisionDetect(Apple& apple) {
-	//if (std::find(snake.GetPoints().begin(), snake.GetPoints().end(), std::make_tuple(randomX, randomY)) == snake.GetPoints().end()) {
-		//m_spot[0] = randomX;
-		//m_spot[1] = randomY;
-		//break;
-	//}
+
+	if (std::find(m_points.begin() + 1, m_points.end(), m_points.front()) != m_points.end()) {
+		std::cout << "Crashed!\n";
+	}
 
 	if (m_points.front() == std::make_tuple(apple.GetSpot()[0], apple.GetSpot()[1])) {
 		switch (m_direction) {
@@ -54,10 +53,6 @@ void Snake::CollisionDetect(Apple& apple) {
 void Snake::Move(Renderer::Grid& grid) {
 	if (m_movement > 1) {
 		if (m_direction == UP) {
-			/*for (int i = 0; i < m_points.size(); ++i) {
-				grid.UnsetPixel(std::get<0>(m_points[i]), std::get<1>(m_points[i]));
-				std::get<1>(m_points[i]) += 1;
-			}*/
 
 			grid.UnsetPixel(std::get<0>(m_points.back()), std::get<1>(m_points.back()));
 			m_points.pop_back();
@@ -67,10 +62,6 @@ void Snake::Move(Renderer::Grid& grid) {
 
 		}
 		else if (m_direction == RIGHT) {
-			/*for (int i = 0; i < m_points.size(); ++i) {
-				grid.UnsetPixel(std::get<0>(m_points[i]), std::get<1>(m_points[i]));
-				std::get<0>(m_points[i]) += 1;
-			}*/
 
 			grid.UnsetPixel(std::get<0>(m_points.back()), std::get<1>(m_points.back()));
 			m_points.pop_back();
@@ -103,5 +94,16 @@ std::deque<std::tuple<int, int>>& Snake::GetPoints() {
 
 //Setter
 void Snake::SetDirection(directions direction) {
+	if (m_direction == direction)
+		return;
+	if (m_direction == UP && direction == DOWN)
+		return;
+	if (m_direction == DOWN && direction == UP)
+		return;
+	if (m_direction == LEFT && direction == RIGHT)
+		return;
+	if (m_direction == RIGHT && direction == LEFT)
+		return;
+
 	m_direction = direction;
 }
