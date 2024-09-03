@@ -52,7 +52,16 @@ void Snake::CollisionDetect(Apple& apple) {
 			m_points.push_back({ std::get<0>(m_points.back()) + 1, std::get<1>(m_points.back()) });
 			apple.GetSpot()[0] = -1;
 			break;
+
 		}
+
+		//Check if last two points are on the same x-axis
+		//if (std::get<0>(m_points.back()) - std::get<0>(m_points[m_points.size() - 2]) == 0) {
+			//if (std::get<1>(m_points.back()) - std::get<1>(m_points[m_points.size() - 2]) == -1) {
+			//	m_points.push_back({ std::get<0>(m_points.back()), std::get<1>(m_points.back()) - 1 });
+			//}
+		//}
+
 	}
 }
 
