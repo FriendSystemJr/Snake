@@ -6,6 +6,9 @@
 #include <functional>
 
 void HandleInput(GLFWwindow* window, Renderer::Grid& grid, Snake& snake);
+
+void RestartGame(Snake& snake, Renderer::Grid& grid);
+
 std::unordered_map<int, bool> keyStates;
 
 int main() {
@@ -55,15 +58,8 @@ int main() {
 			std::cout << "Your size was: " << snake.GetPoints().size() << "\n";
 			std::cout << "Press any key for restart!\n";
 			std::cin.get();
-
-			//TODO: Refactor (add clear method for grid in dll)
-			for (int i = 0; i < snake.GetPoints().size(); ++i) {
-				grid.UnsetPixel(std::get<0>(snake.GetPoints()[i]), std::get<1>(snake.GetPoints()[i]));
-			}
-
-			snake.GetPoints().clear();
-			snake = Snake();
-
+			
+			RestartGame(snake, grid);
 			grid.UnsetPixel(apple.GetSpot()[0], apple.GetSpot()[1]);
 			apple.GetSpot()[0] = -1;
 
@@ -95,6 +91,15 @@ void HandleInput(GLFWwindow* window, Renderer::Grid& grid, Snake& snake) {
 	AddKeyCheck(window, Renderer::InputHandler::KEY_S, std::bind(&Snake::SetDirection, &snake, std::placeholders::_1), snake.DOWN);
 
 	AddKeyCheck(window, Renderer::InputHandler::KEY_A, std::bind(&Snake::SetDirection, &snake, std::placeholders::_1), snake.LEFT);
-
 	
+}
+
+void RestartGame(Snake& snake, Renderer::Grid& grid) {
+	//TODO: Refactor (add clear method for grid in dll)
+	for (int i = 0; i < snake.GetPoints().size(); ++i) {
+		grid.UnsetPixel(std::get<0>(snake.GetPoints()[i]), std::get<1>(snake.GetPoints()[i]));
+	}
+
+	snake.GetPoints().clear();
+	snake = Snake();
 }
