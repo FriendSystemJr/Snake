@@ -11,8 +11,6 @@ void RestartGame(Snake& snake, Renderer::Grid& grid);
 
 std::unordered_map<int, bool> keyStates;
 
-int debugState;
-
 int main() {
 	Renderer::Init(800, 800, "Snake");
 
@@ -31,8 +29,6 @@ int main() {
 	apple.SetSpot(grid, snake);
 
 	while(!Renderer::windowShouldClose()) {
-
-		debugState = snake.GetState();
 
 		HandleInput((GLFWwindow*)Renderer::GetRenderWindow(), grid, snake);
 
@@ -67,6 +63,21 @@ int main() {
 
 		}*/
 
+		if (snake.GetState() == snake.END) {
+			std::cout << "Your size was: " << snake.GetPoints().size() << "\n";
+			std::cout << "Press any key to restart!\n";
+
+			// Render the final frame before restarting
+			while (snake.GetState() == snake.END) {
+				HandleInput((GLFWwindow*)Renderer::GetRenderWindow(), grid, snake);
+				Renderer::RenderGrid(grid, shader);
+			}
+
+			grid.UnsetPixel(apple.GetSpot()[0], apple.GetSpot()[1]);
+			apple.GetSpot()[0] = -1;
+
+		}
+
 	}
 
 }
@@ -89,18 +100,51 @@ void AddKeyCheck(GLFWwindow* window, Renderer::InputHandler::KeyCode key, Func f
 }
 
 void HandleInput(GLFWwindow* window, Renderer::Grid& grid, Snake& snake) {
-    // Check if the one of the direction keys is pressed and call the 'SetDirection' function of the 'snake' object with the corresponding direction
-    AddKeyCheck(window, Renderer::InputHandler::KEY_W, std::bind(&Snake::SetDirection, &snake, std::placeholders::_1), snake.UP);
+	// Check if the one of the direction keys is pressed and call the 'SetDirection' function of the 'snake' object with the corresponding direction
+	
+	if(snake.GetState() == snake.START || snake.GetState() == snake.GAME) {
+		AddKeyCheck(window, Renderer::InputHandler::KEY_W, std::bind(&Snake::SetDirection, &snake, std::placeholders::_1), snake.UP);
 
-    AddKeyCheck(window, Renderer::InputHandler::KEY_D, std::bind(&Snake::SetDirection, &snake, std::placeholders::_1), snake.RIGHT);
+		AddKeyCheck(window, Renderer::InputHandler::KEY_D, std::bind(&Snake::SetDirection, &snake, std::placeholders::_1), snake.RIGHT);
 
-    AddKeyCheck(window, Renderer::InputHandler::KEY_S, std::bind(&Snake::SetDirection, &snake, std::placeholders::_1), snake.DOWN);
+		AddKeyCheck(window, Renderer::InputHandler::KEY_S, std::bind(&Snake::SetDirection, &snake, std::placeholders::_1), snake.DOWN);
 
-    AddKeyCheck(window, Renderer::InputHandler::KEY_A, std::bind(&Snake::SetDirection, &snake, std::placeholders::_1), snake.LEFT);
+		AddKeyCheck(window, Renderer::InputHandler::KEY_A, std::bind(&Snake::SetDirection, &snake, std::placeholders::_1), snake.LEFT);
 
-    if (snake.GetState() == snake.END) {
-       
-    }
+	}
+
+	if (snake.GetState() == snake.END) {
+		if (Renderer::InputHandler::GetKey(window, Renderer::InputHandler::KEY_SPACE) == Renderer::InputHandler::KEY_PRESSED) {
+			// Check if the key state is not already true
+			if (!keyStates[Renderer::InputHandler::KEY_SPACE]) {
+				// Call the provided function with the given arguments
+				RestartGame(snake, grid);
+				keyStates[Renderer::InputHandler::KEY_SPACE] = true;
+			}
+		}
+		// Check if the key is released
+		else if (Renderer::InputHandler::GetKey(window, Renderer::InputHandler::KEY_SPACE) == Renderer::InputHandler::KEY_RELEASED) {
+			keyStates[Renderer::InputHandler::KEY_SPACE] = false;
+		}
+	}
+
+	if (snake.GetState() == snake.END) {
+		for (int key = Renderer::InputHandler::KEY_SPACE; key <= Renderer::InputHandler::KEY_MENU; ++key) {
+			if (Renderer::InputHandler::GetKey(window, key) == Renderer::InputHandler::KEY_PRESSED) {
+				// Check if the key state is not already true
+				if (!keyStates[key]) {
+					// Call the provided function with the given arguments
+					RestartGame(snake, grid);
+					keyStates[key] = true;
+				}
+			}
+			// Check if the key is released
+			else if (Renderer::InputHandler::GetKey(window, key) == Renderer::InputHandler::KEY_RELEASED) {
+				keyStates[key] = false;
+			}
+		}
+	}
+
 }
 
 void RestartGame(Snake& snake, Renderer::Grid& grid) {
